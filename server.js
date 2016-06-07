@@ -46,7 +46,7 @@ app.post('/html2pdf', JSONBody, function(req, res) {
     };
 
     try {
-        pdf.create(req.body.htmlString, pdfOptions).toFile('tmp/' + req.body.fileName + '.pdf', function(err, res) {
+        pdf.create(req.body.htmlString, pdfOptions).toFile('/tmp/' + req.body.fileName + '.pdf', function(err, res) {
             if(err) {
                 console.log('there was an error:', err);
                 return;
