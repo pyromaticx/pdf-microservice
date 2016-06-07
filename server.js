@@ -46,7 +46,7 @@ app.post('/html2pdf', JSONBody, function(req, res) {
     };
 
     try {
-        pdf.create(req.body.htmlString, pdfOptions).toFile('/tmp/' + req.body.fileName + '.pdf', function(err, res) {
+        pdf.create(req.body.htmlString, pdfOptions).toFile('public/' + req.body.fileName + '.pdf', function(err, res) {
             if(err) {
                 console.log('there was an error:', err);
                 return;
@@ -57,7 +57,7 @@ app.post('/html2pdf', JSONBody, function(req, res) {
         console.error(e);
     }
     console.log(req.body.fileName)
-    res.send('https://htmln2pdf.herokuapp.com/tmp/' + req.body.fileName + '.pdf');
+    res.send('https://htmln2pdf.herokuapp.com/public/' + req.body.fileName + '.pdf');
 });
 
 app.listen(port);
