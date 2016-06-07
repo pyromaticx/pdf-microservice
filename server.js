@@ -12,11 +12,11 @@ var app = express();
 var transporter = nodemailer.createTransport('smtps://apps%40golivelabs.io:Pass1110@smtp.gmail.com');
 var JSONBody = bodyParser.json({ type: 'application/json'});
 app.use(cors());
-app.use('/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/tmp'));
 var textBody = bodyParser.text({ type: 'text/html', limit: '1mb'});
 
 app.post('/signup', JSONBody, function(req, res) {
-    
+
         var mailOptions = {
             from: '"Invitations" <apps@golivelabs.io>', // sender address
             to: 'kg@golivelabs.io', // list of receivers
@@ -24,7 +24,7 @@ app.post('/signup', JSONBody, function(req, res) {
             text: req.body.name + ' requested access to UxPass. Here is their information: \n' + 'Name: ' + req.body.name + '\nEmail: ' + req.body.email, // plaintext body
             html: req.body.name + ' requested access to UxPass. Here is their information: \n' + 'Name: ' + req.body.name + '\nEmail: ' + req.body.email // html body
         };
-        
+
         // send mail with defined transport object
         transporter.sendMail(mailOptions, function(error, info){
             if(error){
@@ -33,7 +33,7 @@ app.post('/signup', JSONBody, function(req, res) {
             console.log('Message sent: ' + info.response);
             res.sendStatus(200);
         });
- 
+
 });
 
 
@@ -44,9 +44,9 @@ app.post('/html2pdf', JSONBody, function(req, res) {
         orientation: 'portrait',
         border: '0.5in'
     };
-  
+
     try {
-        pdf.create(req.body.htmlString, pdfOptions).toFile('public/' + req.body.fileName + '.pdf', function(err, res) {
+        pdf.create(req.body.htmlString, pdfOptions).toFile('tmp/' + req.body.fileName + '.pdf', function(err, res) {
             if(err) {
                 console.log('there was an error:', err);
                 return;
@@ -57,7 +57,7 @@ app.post('/html2pdf', JSONBody, function(req, res) {
         console.error(e);
     }
     console.log(req.body.fileName)
-    res.send('https://pdf-service-pyromaticx.c9users.io/public/' + req.body.fileName + '.pdf');
+    res.send('https://htmln2pdf.herokuapp.com/' + req.body.fileName + '.pdf');
 });
 
 app.listen(port);
