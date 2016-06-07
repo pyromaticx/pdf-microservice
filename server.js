@@ -5,6 +5,8 @@ var fs = require('fs');
 var pdf = require('html-pdf');
 var uuid = require('uuid');
 var path = require('path');
+var aws = require('aws-sdk');
+var s3 = new aws.S3();
 var nodemailer = require('nodemailer');
 var port = process.env.PORT || 8080;
 var app = express();
@@ -46,12 +48,15 @@ app.post('/html2pdf', JSONBody, function(req, res) {
     };
 
     try {
-        pdf.create(req.body.htmlString, pdfOptions).toFile('../tmp/' + req.body.fileName + '.pdf', function(err, res) {
+        pdf.create(req.body.htmlString, pdfOptions).toStream(function(err, stream) {
             if(err) {
                 console.log('there was an error:', err);
                 return;
             }
-            console.log(res.filename);
+            var s3Params = {Bucket: 'uxppdf', Key: req.body.fileName, Body: stream};
+            s3.upload(s3Params, function(err, data) {
+              console.log(data);
+            })
         });
     } catch(e) {
         console.error(e);
