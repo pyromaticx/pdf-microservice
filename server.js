@@ -12,7 +12,7 @@ var app = express();
 var transporter = nodemailer.createTransport('smtps://apps%40golivelabs.io:Pass1110@smtp.gmail.com');
 var JSONBody = bodyParser.json({ type: 'application/json'});
 app.use(cors());
-app.use('/public', express.static(__dirname + '/tmp'));
+app.use('/public', express.static(__dirname + '../tmp'));
 var textBody = bodyParser.text({ type: 'text/html', limit: '1mb'});
 
 app.post('/signup', JSONBody, function(req, res) {
@@ -46,7 +46,7 @@ app.post('/html2pdf', JSONBody, function(req, res) {
     };
 
     try {
-        pdf.create(req.body.htmlString, pdfOptions).toFile('public/' + req.body.fileName + '.pdf', function(err, res) {
+        pdf.create(req.body.htmlString, pdfOptions).toFile('../tmp' + req.body.fileName + '.pdf', function(err, res) {
             if(err) {
                 console.log('there was an error:', err);
                 return;
