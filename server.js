@@ -53,16 +53,15 @@ app.post('/html2pdf', JSONBody, function(req, res) {
                 console.log('there was an error:', err);
                 return;
             }
-            var s3Params = {Bucket: 'uxppdf', Key: req.body.fileName, Body: stream};
+            var s3Params = {Bucket: 'uxppdf', Key: req.body.fileName, ACL: 'public-read', Body: stream};
             s3.upload(s3Params, function(err, data) {
               console.log(err, data);
+              res.send(data.location);
             })
         });
     } catch(e) {
         console.error(e);
     }
-    console.log(req.body.fileName)
-    res.send('https://htmln2pdf.herokuapp.com/public/' + req.body.fileName + '.pdf');
 });
 
 app.listen(port);
