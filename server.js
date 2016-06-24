@@ -20,7 +20,7 @@ var textBody = bodyParser.text({ type: 'text/html', limit: '1mb'});
 app.post('/signup', JSONBody, function(req, res) {
 
         var mailOptions = {
-            from: '"Invitations" <invitation@golivelabs.io>', // sender address
+            from: '"UXPass Invitation" <apps@golivelabs.io>', // sender address
             to: 'ra@golivelabs.io', // list of receivers
             subject: req.body.name + ' is requesting access to UxPass', // Subject line
             text: req.body.name + ' requested access to UxPass. Here is their information: \n' + 'Name: ' + req.body.name + '\nEmail: ' + req.body.email, // plaintext body
