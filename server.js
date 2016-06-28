@@ -36,7 +36,9 @@ app.post('/signup', JSONBody, function(req, res) {
           if(err) {
             console.error(err);
           }
-          console.info(resp);
+          if(resp.body.error) {
+            res.send(resp.body.error);
+          }
           // send mail with defined transport object
           transporter.sendMail(mailOptions, function(error, info){
               if(error){
