@@ -28,11 +28,11 @@ app.post('/signup', JSONBody, function(req, res) {
             html: req.body.name + ' requested access to UxPass. Here is their information: \n' + ' Name: ' + req.body.name + ' \nCompany: ' + req.body.company + ' \nEmail: ' + req.body.email,
         };
         console.log(serverURL + 'user/invitations');
-        request.post(serverURL + 'user/invitations').form({
+        request.post({url: serverURL + 'user/invitations', form: {
           name: req.body.name,
           email: req.body.email,
           company: req.body.company
-        }, function(err, resp, body) {
+        }}, function(err, resp, body) {
           if(err) {
             console.error(err);
           }
