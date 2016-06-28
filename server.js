@@ -10,7 +10,8 @@ var s3 = new aws.S3();
 var nodemailer = require('nodemailer');
 var port = process.env.PORT || 8080;
 var app = express();
-
+var request = require('request');
+var serverURL = 'https://uxpass-server.herokuapp.com/';
 var transporter = nodemailer.createTransport('smtps://apps%40golivelabs.io:Pass1110@smtp.gmail.com');
 var JSONBody = bodyParser.json({ type: 'application/json'});
 app.use(cors());
@@ -21,21 +22,31 @@ app.post('/signup', JSONBody, function(req, res) {
 
         var mailOptions = {
             from: '"UXPass Invitation" <apps@golivelabs.io>', // sender address
-            to: 'ra@golivelabs.io', // list of receivers
+            to: 'kg@golivelabs.io', // list of receivers
             subject: req.body.name + ' is requesting access to UxPass', // Subject line
-            text: req.body.name + ' requested access to UxPass. Here is their information: \n' + 'Name: ' + req.body.name + '\nEmail: ' + req.body.email, // plaintext body
-            html: req.body.name + ' requested access to UxPass. Here is their information: \n' + 'Name: ' + req.body.name + '\nEmail: ' + req.body.email // html body
+            text: req.body.name + ' requested access to UxPass. Here is their information: \n' + ' Name: ' + req.body.name + ' \nCompany: ' + req.body.company + ' \nEmail: ' + req.body.email, // plaintext body
+            html: req.body.name + ' requested access to UxPass. Here is their information: \n' + ' Name: ' + req.body.name + ' \nCompany: ' + req.body.company + ' \nEmail: ' + req.body.email,
         };
 
-        // send mail with defined transport object
-        transporter.sendMail(mailOptions, function(error, info){
-            if(error){
-                return console.log(error);
-            }
-            console.log('Message sent: ' + info.response);
-            res.sendStatus(200);
+        request.post(serverURL + 'user/invitations').form({
+          name: req.body.name,
+          email: req.body.email,
+          company: req.body.company
+        }, function(err, resp, body) {
+          if(err) {
+            console.error(err);
+            return;
+          }
+          console.info(resp);
+          // send mail with defined transport object
+          transporter.sendMail(mailOptions, function(error, info){
+              if(error){
+                  return console.log(error);
+              }
+              console.log('Message sent: ' + info.response);
+              res.sendStatus(200);
+          });
         });
-
 });
 
 
