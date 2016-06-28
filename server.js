@@ -36,7 +36,9 @@ app.post('/signup', JSONBody, function(req, res) {
           if(err) {
             console.error(err);
           }
-          console.log(resp, body)
+          console.log('ERR', err)
+          console.log('BODY', body)
+          console.log('RESP', resp);
           if(body.error) {
             res.send(body.error);
           }
