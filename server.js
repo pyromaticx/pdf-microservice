@@ -67,7 +67,7 @@ app.post('/html2pdf', JSONBody, function(req, res) {
                 console.log('there was an error:', err);
                 return;
             }
-            var s3Params = {Bucket: 'uxppdf', Key: req.body.fileName, ACL: 'public-read', Body: stream};
+            var s3Params = {Bucket: 'uxppdf', Key: req.body.fileName + '.pdf', ACL: 'public-read', Body: stream};
             s3.upload(s3Params, function(err, data) {
               console.log(err, data);
               res.send(data.Location);
