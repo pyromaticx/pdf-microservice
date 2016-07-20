@@ -52,7 +52,24 @@ app.post('/signup', JSONBody, function(req, res) {
         });
 });
 
+app.post('/email/collection', bodyParser.urlencoded("application/x-www-form-urlencoded"), function(req, res) {
+console.log(req.body)
+  var mailOptions = {
+      from: '"UXPass Sharing" <apps@golivelabs.io>', // sender address
+      to: req.body.emailTo, // list of receivers
+      subject: req.body.sender + " shared a collection on UXPass with you",
+      text: req.body.urlTarget,
+      html: req.body.urlTarget
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+        res.sendStatus(200);
+    });
 
+});
 app.post('/html2pdf', JSONBody, function(req, res) {
     var uid = uuid.v1();
     var pdfOptions = {
