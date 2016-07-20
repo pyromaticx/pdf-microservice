@@ -53,13 +53,14 @@ app.post('/signup', JSONBody, function(req, res) {
 });
 
 app.post('/email/collection', bodyParser.urlencoded("application/x-www-form-urlencoded"), function(req, res) {
-console.log(req.body)
+  console.log(req.body)
+  var body = JSON.parse(req.body)
   var mailOptions = {
       from: '"UXPass Sharing" <apps@golivelabs.io>', // sender address
-      to: req.body.emailTo, // list of receivers
-      subject: req.body.sender + " shared a collection on UXPass with you",
-      text: req.body.urlTarget,
-      html: req.body.urlTarget
+      to: body.emailTo, // list of receivers
+      subject: body.sender + " shared a collection on UXPass with you",
+      text: body.urlTarget,
+      html: body.urlTarget
     };
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
