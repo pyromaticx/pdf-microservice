@@ -74,12 +74,12 @@ app.post('/email/collection', bodyParser.urlencoded("application/x-www-form-urle
 app.post('/email/verification', function(req, res) {
   console.log(req.query)
 
-  /*var mailOptions = {
-      from: '"UXPass Sharing" <apps@golivelabs.io>', // sender address
-      to: req.body.emailTo, // list of receivers
-      subject: req.body.sender + " shared a collection on UXPass with you",
-      text: req.body.urlTarget,
-      html: req.body.urlTarget
+  var mailOptions = {
+      from: '"UXPass Activation" <apps@golivelabs.io>', // sender address
+      to: req.query.email, // list of receivers
+      subject: "Please verify your email.",
+      text: "Please follow this link to verify your UxPass account: http://www.uxpass.com/#/verify/" + req.query.uuid,
+      html: "Please follow this link to verify your UxPass account: http://www.uxpass.com/#/verify/" + req.query.uuid,
     };
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
@@ -88,7 +88,7 @@ app.post('/email/verification', function(req, res) {
         console.log('Message sent: ' + info.response);
         res.sendStatus(200);
     });
-*/
+
 });
 app.post('/html2pdf', JSONBody, function(req, res) {
     var uid = uuid.v1();
