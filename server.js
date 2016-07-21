@@ -71,8 +71,8 @@ app.post('/email/collection', bodyParser.urlencoded("application/x-www-form-urle
     });
 
 });
-app.post('/email/verification', bodyParser.urlencoded("application/x-www-form-urlencoded"), function(req, res) {
-  console.log(req.body)
+app.post('/email/verification', function(req, res) {
+  console.log(req.query)
 
   /*var mailOptions = {
       from: '"UXPass Sharing" <apps@golivelabs.io>', // sender address
@@ -88,7 +88,7 @@ app.post('/email/verification', bodyParser.urlencoded("application/x-www-form-ur
         console.log('Message sent: ' + info.response);
         res.sendStatus(200);
     });
-*/
+*/u logs
 });
 app.post('/html2pdf', JSONBody, function(req, res) {
     var uid = uuid.v1();
