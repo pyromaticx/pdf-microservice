@@ -88,7 +88,7 @@ app.post('/email/verification', function(req, res) {
         console.log('Message sent: ' + info.response);
         res.sendStatus(200);
     });
-*/u logs
+*/
 });
 app.post('/html2pdf', JSONBody, function(req, res) {
     var uid = uuid.v1();
