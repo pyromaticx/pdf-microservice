@@ -60,7 +60,8 @@ app.post('/email/collection', bodyParser.urlencoded("application/x-www-form-urle
       to: req.body.emailTo, // list of receivers
       subject: req.body.sender + " shared a collection on UXPass with you",
       text: req.body.urlTarget,
-      html: req.body.urlTarget
+      html: req.body.urlTarget,
+      attachments: req.body.attachmentFiles
     };
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
