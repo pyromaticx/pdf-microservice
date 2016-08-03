@@ -22,10 +22,10 @@ app.post('/signup', JSONBody, function(req, res) {
 
         var mailOptions = {
             from: '"UXPass Invitation" <apps@golivelabs.io>', // sender address
-            to: 'kg@golivelabs.io', // list of receivers
+            to: 'ra@golivelabs.io', // list of receivers
             subject: req.body.name + ' is requesting access to UxPass', // Subject line
-            text: req.body.name + ' requested access to UxPass. Here is their information: \n' + ' Name: ' + req.body.name + ' \nCompany: ' + req.body.company + ' \nEmail: ' + req.body.email + "\nDesignation: " + req.body.designation + "Hours to beta test: " + req.body.hours, // plaintext body
-            html: req.body.name + ' requested access to UxPass. Here is their information: \n' + ' Name: ' + req.body.name + ' \nCompany: ' + req.body.company + ' \nEmail: ' + req.body.email + "\nDesignation: " + req.body.designation + "Hours to beta test: " + req.body.hours,
+            text: req.body.name + ' requested access to UxPass. Here is their information: \n' + ' Name: ' + req.body.name + ' \nCompany: ' + req.body.company + ' \nEmail: ' + req.body.email + " \nDesignation: " + req.body.designation + " Hours to beta test: " + req.body.hours, // plaintext body
+            html: req.body.name + ' requested access to UxPass. Here is their information: \n' + ' Name: ' + req.body.name + ' \nCompany: ' + req.body.company + ' \nEmail: ' + req.body.email + " \nDesignation: " + req.body.designation + " Hours to beta test: " + req.body.hours,
         };
         console.log(serverURL + 'user/invitations');
         request.post({url: serverURL + 'user/invitations', form: {
