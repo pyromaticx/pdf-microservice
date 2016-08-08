@@ -96,16 +96,19 @@ app.post('/string2html', JSONBody, function(req, res) {
     var htmlString = req.body.htmlString;
     var fileName = req.body.fileName;
     console.log(htmlString);
+
+    var s3Params = {Bucket: 'uxphtml', Key: req.body.fileName + '.html', ACL: 'public-read', Body: htmlString};
+    s3.upload(s3Params, function(err, data) {
+      console.log(err, data);
+      res.send(data.Location);
+    });
+    /*
     fs.writeFile("/tmp/" + fileName + ".html", htmlString, (err) => {
       if(err) {
         return console.error(err);
       }
       console.log(fileName + ".html" + " WRITE OK");
-      var s3Params = {Bucket: 'uxphtml', Key: req.body.fileName + '.html', ACL: 'public-read', Body: "/tmp/" + fileName + ".html"};
-      s3.upload(s3Params, function(err, data) {
-        console.log(err, data);
-        res.send(data.Location);
-      });
+      */
     });
 
 })
