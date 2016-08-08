@@ -91,6 +91,11 @@ app.post('/email/verification', function(req, res) {
     });
 
 });
+app.post('/string2html', JSONBody, function(req, res) {
+    var uid = uuid.v1();
+    var htmlString = req.body.htmlString;
+    console.log(htmlString);
+})
 app.post('/html2pdf', JSONBody, function(req, res) {
     var uid = uuid.v1();
     var pdfOptions = {
