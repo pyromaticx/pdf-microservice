@@ -101,8 +101,13 @@ app.post('/string2html', JSONBody, function(req, res) {
         return console.error(err);
       }
       console.log(fileName + ".html" + " WRITE OK");
-    })
-    res.send("OK");
+      var s3Params = {Bucket: 'uxphtml', Key: req.body.fileName + '.html', ACL: 'public-read', Body: "/tmp/" + fileName + ".html"};
+      s3.upload(s3Params, function(err, data) {
+        console.log(err, data);
+        res.send(data.Location);
+      });
+    });
+
 })
 app.post('/html2pdf', JSONBody, function(req, res) {
     var uid = uuid.v1();
