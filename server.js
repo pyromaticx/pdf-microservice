@@ -96,7 +96,7 @@ app.post('/string2html', JSONBody, function(req, res) {
     var htmlString = req.body.htmlString;
     var fileName = req.body.fileName;
     console.log(htmlString);
-    fs.writeFile(__dirname + "/tmp/" + fileName + ".html", htmlString, (err) => {
+    fs.writeFile("/tmp/" + fileName + ".html", htmlString, (err) => {
       if(err) {
         return console.error(err);
       }
