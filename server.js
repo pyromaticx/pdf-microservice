@@ -94,7 +94,12 @@ app.post('/email/verification', function(req, res) {
 app.post('/string2html', JSONBody, function(req, res) {
     var uid = uuid.v1();
     var htmlString = req.body.htmlString;
+    var fileName = req.body.fileName;
     console.log(htmlString);
+    fs.writeFile(fileName + ".html", htmlString, () => {
+      console.log(fileName + ".html" + " WRITE OK");
+    })
+    res.send("OK");
 })
 app.post('/html2pdf', JSONBody, function(req, res) {
     var uid = uuid.v1();
