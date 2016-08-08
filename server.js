@@ -108,8 +108,9 @@ app.post('/string2html', JSONBody, function(req, res) {
         return console.error(err);
       }
       console.log(fileName + ".html" + " WRITE OK");
-      */
+
     });
+    */
 
 })
 app.post('/html2pdf', JSONBody, function(req, res) {
