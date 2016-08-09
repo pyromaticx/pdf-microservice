@@ -97,21 +97,11 @@ app.post('/string2html', JSONBody, function(req, res) {
     var fileName = req.body.fileName;
     console.log(htmlString);
 
-    var s3Params = {Bucket: 'uxphtml', Key: req.body.fileName + '.html', ACL: 'public-read', Body: htmlString};
+    var s3Params = {Bucket: 'uxphtml', Key: req.body.fileName + '.html', ACL: 'public-read', ContentType: "application/pdf", Body: htmlString};
     s3.upload(s3Params, function(err, data) {
       console.log(err, data);
       res.send(data.Location);
     });
-    /*
-    fs.writeFile("/tmp/" + fileName + ".html", htmlString, (err) => {
-      if(err) {
-        return console.error(err);
-      }
-      console.log(fileName + ".html" + " WRITE OK");
-
-    });
-    */
-
 })
 app.post('/html2pdf', JSONBody, function(req, res) {
     var uid = uuid.v1();
@@ -127,7 +117,7 @@ app.post('/html2pdf', JSONBody, function(req, res) {
                 console.log('there was an error:', err);
                 return;
             }
-            var s3Params = {Bucket: 'uxppdf', Key: req.body.fileName + '.pdf', ACL: 'public-read', Body: stream};
+            var s3Params = {Bucket: 'uxppdf', Key: req.body.fileName + '.pdf', ACL: 'public-read', ContentType: "application/pdf", Body: stream};
             s3.upload(s3Params, function(err, data) {
               console.log(err, data);
               res.send(data.Location);
