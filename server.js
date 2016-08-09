@@ -97,7 +97,7 @@ app.post('/string2html', JSONBody, function(req, res) {
     var fileName = req.body.fileName;
     console.log(htmlString);
 
-    var s3Params = {Bucket: 'uxphtml', Key: req.body.fileName + '.html', ACL: 'public-read', ContentType: "text/plain", Body: htmlString};
+    var s3Params = {Bucket: 'uxphtml', Key: req.body.fileName + '.html', ACL: 'public-read', ContentType: "text/html", Body: htmlString};
     s3.upload(s3Params, function(err, data) {
       console.log(err, data);
       res.send(data.Location);
